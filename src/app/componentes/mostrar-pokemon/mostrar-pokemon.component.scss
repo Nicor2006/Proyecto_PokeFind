@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+// Contenedor principal
+.centered-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Ocupa toda la altura de la ventana
+}
+
+// Tarjeta principal
+.p-card {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f3e6e8, #c3dfe0);
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  color: #2c3e50;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Títulos con animación
+h1, h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #db3434, #f3eb04);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    animation: shine 3s infinite;
+  }
+}
+
+// Imagen del Pokémon
+.pokemon-image {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+  display: block;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+// Botón
+button {
+  background-color: #6390f0;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #507ac0;
+  }
+}
+
+// Texto informativo
+.InfoPokemon {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #4b4b4b;
+}
+
+// Subtítulo
+.Sub-Title {
+  color: #8c8c8c;
+  font-size: 1rem;
+}
+
+// Colores de tipos de Pokémon
+.normal { color: #A8A77A; }
+.fire { color: #EE8130; }
+.water { color: #6390F0; }
+.electric { color: #F7D02C; }
+.grass { color: #7AC74C; }
+.ice { color: #96D9D6; }
+.fighting { color: #C22E28; }
+.poison { color: #A33EA1; }
+.ground { color: #E2BF65; }
+.flying { color: #A98FF3; }
+.psychic { color: #F95587; }
+.bug { color: #A6B91A; }
+.rock { color: #B6A136; }
+.ghost { color: #735797; }
+.dragon { color: #6F35FC; }
+.dark { color: #705746; }
+.steel { color: #B7B7CE; }
+.fairy { color: #D685AD; }
+
+// Keyframes para el brillo
+@keyframes shine {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Loader
+.loader {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 5px solid #FF3D00;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  &::after {
+    content: '';  
+    box-sizing: border-box;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    border: 3px solid #1ba103;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+}
+
+// Toast de mensajes
+.p-toast .p-toast-message {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+
+  .text-red-600 { margin: 0; }
+  .text-gray-700 {
+    margin: 0;
+    padding-top: 0.5rem;
+  }
+}

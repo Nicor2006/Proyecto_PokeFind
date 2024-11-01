@@ -1,0 +1,96 @@
+
+<div class="centered-container" style="height: 100vh;">
+  <h1>PokeFinder</h1>
+  <div class="p-fluid p-m-4 full-width">
+    <p-iconField>
+      <input 
+        pInputText 
+        id="pokemonName" 
+        #pokemonName 
+        (input)="updateName(pokemonName.value)" 
+        autocomplete="off" 
+        class="p-inputtext-lg" 
+        placeholder="Nombre de un Pokémon o el número de la Pokédex"
+      />
+    </p-iconField>
+    <p-button 
+      label="Buscar" 
+      icon="pi pi-search" 
+      (click)="loadPokemon()" 
+      class="p-button-success p-mt-2 full-width"
+    ></p-button>
+    
+    <div class="card flex justify-content-center flex-wrap">
+      <div class="toggle-column flex align-items-center justify-content-center">
+        <label>Version Shiny</label>
+        <p-toggleButton
+          [(ngModel)]="shiny" 
+          onLabel="On" 
+          offLabel="Off" />
+      </div>
+
+      <div class="toggle-column flex align-items-center justify-content-center">
+        <label>Version con informacion extra</label>
+        <p-toggleButton
+          [(ngModel)]="detallesExtra" 
+          onLabel="On" 
+          offLabel="Off" />
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Loader -->
+  @if (loading()) {
+    <div class="loader-container">
+      <span class="loader"></span>
+    </div>
+  }
+
+  <!-- Pokémon Data Display -->
+  @if (animationArray().length === 2 && imagenActual()) {
+    <div class="p-card p-mt-3 text-center">
+      <h2>{{ pokemonData().species.name }}</h2>
+      <p-image [src]="imagenActual()" alt="Imagen de animación" class="pokemon-image"/>
+      <button mat-button (click)="playSound(pokemonData().cries.latest)">Sonido</button>
+      @if (detallesExtra) {   
+        <div class="p-card p-mt-3 text-center">
+          @for (item of pokemonData().types; track item) {
+            <h3 class="{{item.type.name}}">{{ capitalizeFirstLetter(item.type.name) }}</h3>
+        }
+        @for (i of pokemonData().abilities; track $index) {
+          <p class="InfoPokemon"><b class="Sub-Title">- Habilidad {{$index + 1}}</b>: {{capitalizeFirstLetter(i.ability.name)}}</p>
+      }
+      <p><b>- Altura</b> : {{pokemonData().height / 10}} M</p>
+      </div>}
+    </div>
+  } @else if(animationArray().length === 2 && !imagenActual()) { 
+    <div class="p-card p-mt-3 text-center">
+      <h1>{{ pokemonData().species.name }}</h1>
+      <button mat-button (click)="playSound(pokemonData().cries.latest)">Sonido</button>
+      @if (detallesExtra) {   
+        <div class="p-card p-mt-3 text-center">
+          @for (item of pokemonData().types; track item) {
+            <h3 class="{{item.type.name}}">{{ capitalizeFirstLetter(item.type.name) }}</h3>
+        }
+        @for (i of pokemonData().abilities; track $index) {
+          <p class="InfoPokemon"><b class="Sub-Title">- Habilidad {{$index + 1}}</b>: {{capitalizeFirstLetter(i.ability.name)}}</p>
+      }
+      <p><b>- Altura</b> : {{pokemonData().height / 10}} M</p>
+      </div>}
+    </div>
+  }
+  <!-- Toast Notification -->
+  <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+      <div class="flex flex-col items-start p-2 bg-white shadow-3 border-round"> <!-- Cambiar p-4 a p-2 -->
+        <div class="flex items-center gap-2">
+          <span class="text-red-600 font-bold">ERROR</span>
+        </div>
+        <div class="text-gray-700 font-medium text-lg my-1"> <!-- Cambiar my-2 a my-1 -->
+          {{ message.summary }}
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>  
+</div>
